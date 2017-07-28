@@ -1,24 +1,22 @@
 {
-  "name": "meantutorial",
+  "name": "user-login-register-api",
   "version": "1.0.0",
-  "description": "Stack application ",
+  "description": "This is API for Login and Register for User with authentication of user and creating seasion for user Using Node.js, Express.js, Passport.js and sevral node.js middleware connected with MongoDb via mongoose on port:27107(defualt port for MongoDb) and API also contain Validation for all User input in Login and Registration. ",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sarbjyotsingh/User-Register-Login-API-Using-Node.js-Express-Passport.js-Mongodb"
+  },
   "keywords": [
-    "Mean",
-    "stack"
+    "Node.js",
+    "Login",
+    "Registration",
+    "API"
   ],
   "author": "Sarbjyot Singh Chahal",
-  "license": "ISC",
-  "dependencies": {
-    "bcrypt": "^1.0.2",
-    "body-parser": "^1.17.2",
-    "express": "^4.15.3",
-    "mongoose": "^4.11.3",
-    "morgan": "^1.8.2",
-    "multer": "^1.3.0"
-  }
+  "license": "ISC"
 }

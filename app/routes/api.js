@@ -1,4 +1,6 @@
 var User       =require('../models/user');
+var jwt        = require('jsonwebtoken');
+var secret     = 'harrypotter';
 
 module.exports = function(router) {
   //http://localhost:8080/api/users
@@ -33,17 +35,43 @@ module.exports = function(router) {
         }else if(user){
           if(req.body.password){
             var validPassword = user.comparePassword(req.body.password);
-          }else{
+          }else{     
              res.json({ success: false, message: 'No password Provided'});
           }
              
              if(!validPassword){
               res.json({ success: false, message: 'Could not authenticate user'});
              }else {
-              res.json({ success: true, message: 'User Authenticate!!!'});
+                  var token =  jwt.sign({
+                            username: user.username, email: user.email
+                              }, secret, { expiresIn: '24h' });
+              res.json({ success: true, message: 'User Authenticate!!!', token: token});
              }
         }
        });
+   });
+
+    router.use(function(req,res,next){
+      var token = req.body.token || req.body.query || req.header['x-access-token'];
+      if(token) {
+        // verify token
+        jwt.verify(token, secret, function(err,decoded){
+           if(err){
+            req.json({sucess: false, message: 'Token Invalid'});
+          }else{
+            req.decoded = decoded;
+            next();
+          }
+        });
+      } 
+      else{
+             res.json({sucess: false, message: 'No token provided'});
+      }      
+    });
+
+
+   router.post('/me',function(req,res){
+       res.send(req.decoded);
    });
 
   return router;
